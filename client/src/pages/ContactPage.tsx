@@ -61,27 +61,6 @@ export default function ContactPage() {
     { value: "partnership", label: "Партньорство" },
   ];
 
-  const teamMembers = [
-    {
-      name: "Мария Петрова",
-      role: "Главен готвач и основател",
-      experience: "15+ години опит в кулинарията",
-      image: "https://images.unsplash.com/photo-1607631568010-a87245c0daf8?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&h=100"
-    },
-    {
-      name: "Петър Иванов", 
-      role: "Кулинарен експерт",
-      experience: "Специалист по традиционни рецепти",
-      image: "https://images.unsplash.com/photo-1566554273541-37a9ca77b91f?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&h=100"
-    },
-    {
-      name: "Елена Георгиева",
-      role: "Фотограф на храни", 
-      experience: "Визуализация и стилизиране",
-      image: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&h=100"
-    }
-  ];
-
   return (
     <div className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
       <div className="text-center mb-12">
@@ -226,31 +205,6 @@ export default function ContactPage() {
                   <p className="text-gray-800 font-medium">Пн-Пт: 9:00-18:00</p>
                 </div>
               </div>
-            </CardContent>
-          </Card>
-
-          {/* Team */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-2xl font-playfair">Нашият екип</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              {teamMembers.map((member, index) => (
-                <div key={index} className="flex items-center">
-                  <img 
-                    src={member.image} 
-                    alt={member.name}
-                    className="w-16 h-16 rounded-full object-cover"
-                  />
-                  <div className="ml-4">
-                    <h3 className="text-lg font-semibold text-gray-800">
-                      {member.name}
-                    </h3>
-                    <p className="text-gray-600">{member.role}</p>
-                    <p className="text-sm text-gray-500">{member.experience}</p>
-                  </div>
-                </div>
-              ))}
             </CardContent>
           </Card>
 

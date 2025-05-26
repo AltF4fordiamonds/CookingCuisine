@@ -26,9 +26,9 @@ export default function HomePage() {
         ></div>
         <div className="relative max-w-7xl mx-auto px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
           <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-playfair font-bold mb-6">
+            <h1 className="text-4xl md:text-6xl font-playfair font-bold mb-6 text-[#ed9f66]">
               Добре дошли в{" "}
-              <span className="font-dancing text-bright-yellow">ЖиГулИ рецепти</span>
+              <span className="font-dancing text-[#f20202]">ЖиГулИ рецепти</span>
             </h1>
             <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
               Открийте невероятни кулинарни рецепти и споделете своите любими ястия с нашата общност
@@ -54,7 +54,6 @@ export default function HomePage() {
           </div>
         </div>
       </div>
-
       {/* Featured Recipes Section */}
       <div className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
@@ -130,7 +129,6 @@ export default function HomePage() {
           )}
         </div>
       </div>
-
       {/* About Section */}
       <div className="bg-warm-gray py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
