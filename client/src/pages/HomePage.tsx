@@ -83,36 +83,37 @@ export default function HomePage() {
             ))
           ) : featuredRecipes.length > 0 ? (
             featuredRecipes.map((recipe) => (
-              <Card 
-                key={recipe.id} 
-                className="overflow-hidden hover:shadow-xl transition-shadow cursor-pointer"
-              >
-                {recipe.image && (
-                  <img 
-                    src={recipe.image} 
-                    alt={recipe.title}
-                    className="w-full h-48 object-cover"
-                  />
-                )}
-                <CardContent className="p-6">
-                  <h3 className="text-xl font-playfair font-semibold mb-2">
-                    {recipe.title}
-                  </h3>
-                  <p className="text-gray-600 mb-4 line-clamp-2">
-                    {recipe.description}
-                  </p>
-                  <div className="flex items-center justify-between text-sm text-gray-500">
-                    <span className="flex items-center">
-                      <Clock className="w-4 h-4 mr-1" />
-                      {recipe.cookTime} мин
-                    </span>
-                    <span className="flex items-center">
-                      <Users className="w-4 h-4 mr-1" />
-                      {recipe.servings} порции
-                    </span>
-                  </div>
-                </CardContent>
-              </Card>
+              <Link key={recipe.id} href={`/recipe/${recipe.id}`}>
+                <Card 
+                  className="overflow-hidden hover:shadow-xl transition-shadow cursor-pointer"
+                >
+                  {recipe.image && (
+                    <img 
+                      src={recipe.image} 
+                      alt={recipe.title}
+                      className="w-full h-48 object-cover"
+                    />
+                  )}
+                  <CardContent className="p-6">
+                    <h3 className="text-xl font-playfair font-semibold mb-2">
+                      {recipe.title}
+                    </h3>
+                    <p className="text-gray-600 mb-4 line-clamp-2">
+                      {recipe.description}
+                    </p>
+                    <div className="flex items-center justify-between text-sm text-gray-500">
+                      <span className="flex items-center">
+                        <Clock className="w-4 h-4 mr-1" />
+                        {recipe.cookTime} мин
+                      </span>
+                      <span className="flex items-center">
+                        <Users className="w-4 h-4 mr-1" />
+                        {recipe.servings} порции
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
             ))
           ) : (
             <div className="col-span-full text-center py-8">

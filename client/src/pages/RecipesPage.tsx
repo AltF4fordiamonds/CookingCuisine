@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "wouter";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -150,12 +151,14 @@ export default function RecipesPage() {
                     {recipe.servings} порции
                   </span>
                 </div>
-                <Button 
-                  className="w-full bg-warm-orange hover:bg-deep-amber"
-                  size="sm"
-                >
-                  Виж рецептата
-                </Button>
+                <Link href={`/recipe/${recipe.id}`}>
+                  <Button 
+                    className="w-full bg-warm-orange hover:bg-deep-amber"
+                    size="sm"
+                  >
+                    Виж рецептата
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
           ))}
