@@ -48,31 +48,23 @@ export default function Footer() {
             <h4 className="text-lg font-semibold mb-4">Бързи връзки</h4>
             <ul className="space-y-2">
               <li>
-                <Link href="/">
-                  <a className="text-gray-300 hover:text-warm-orange transition-colors">
-                    Начало
-                  </a>
+                <Link href="/" className="text-gray-300 hover:text-warm-orange transition-colors">
+                  Начало
                 </Link>
               </li>
               <li>
-                <Link href="/recipes">
-                  <a className="text-gray-300 hover:text-warm-orange transition-colors">
-                    Рецепти
-                  </a>
+                <Link href="/recipes" className="text-gray-300 hover:text-warm-orange transition-colors">
+                  Рецепти
                 </Link>
               </li>
               <li>
-                <Link href="/add-recipe">
-                  <a className="text-gray-300 hover:text-warm-orange transition-colors">
-                    Добави рецепта
-                  </a>
+                <Link href="/add-recipe" className="text-gray-300 hover:text-warm-orange transition-colors">
+                  Добави рецепта
                 </Link>
               </li>
               <li>
-                <Link href="/contact">
-                  <a className="text-gray-300 hover:text-warm-orange transition-colors">
-                    Контакти
-                  </a>
+                <Link href="/contact" className="text-gray-300 hover:text-warm-orange transition-colors">
+                  Контакти
                 </Link>
               </li>
             </ul>

@@ -17,7 +17,7 @@ export default function RecipesPage() {
     queryFn: async () => {
       const params = new URLSearchParams();
       if (searchTerm) params.set("search", searchTerm);
-      if (selectedCategory) params.set("category", selectedCategory);
+      if (selectedCategory && selectedCategory !== "all") params.set("category", selectedCategory);
       
       const response = await fetch(`/api/recipes?${params}`);
       if (!response.ok) throw new Error("Failed to fetch recipes");
@@ -74,7 +74,7 @@ export default function RecipesPage() {
                   <SelectValue placeholder="Всички категории" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Всички категории</SelectItem>
+                  <SelectItem value="all">Всички категории</SelectItem>
                   {categories.map((category) => (
                     <SelectItem key={category.value} value={category.value}>
                       {category.label}
@@ -84,7 +84,7 @@ export default function RecipesPage() {
               </Select>
             </div>
           </div>
-          {(searchTerm || selectedCategory) && (
+          {(searchTerm || (selectedCategory && selectedCategory !== "all")) && (
             <div className="mt-4 flex gap-2">
               <Button 
                 variant="outline" 
