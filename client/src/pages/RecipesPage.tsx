@@ -128,7 +128,7 @@ export default function RecipesPage() {
         </div>
     ) : recipes && (recipes as Recipe[]).length > 0 ? (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {recipes.map((recipe: Recipe) => (
+          {recipes?.map((recipe: Recipe) => (
             <Card
               key={recipe.id}
               className="overflow-hidden hover:shadow-xl transition-transform hover:scale-105 cursor-pointer"
