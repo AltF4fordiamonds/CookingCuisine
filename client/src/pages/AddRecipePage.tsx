@@ -269,7 +269,6 @@ export default function AddRecipePage() {
             </CardContent>
           </Card>
 
-          {/* Image Upload */}
           <Card>
             <CardHeader>
               <CardTitle className="text-2xl font-playfair">Снимка на ястието</CardTitle>

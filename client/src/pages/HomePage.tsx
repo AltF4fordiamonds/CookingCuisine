@@ -162,7 +162,7 @@ export default function HomePage() {
               <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-lg">
                 <div className="text-center">
                   <div className="text-3xl font-bold text-warm-orange">
-                    {recipes?.length || 0}
+                    {recipes?.length || 0}+
                   </div>
                   <div className="text-gray-600">Рецепти</div>
                 </div>
