@@ -233,7 +233,7 @@ export class MemStorage implements IStorage {
         title: "Царски сладки",
         description: "Елегантни домашни сладки с орехи и меден сироп",
         category: "desserts",
-        prepTime: 45,
+        prepTime: 35,
         cookTime: 25,
         servings: 12,
         image: "https://recepti.gotvach.bg/files/lib/600x350/carskisaldki.webp",
