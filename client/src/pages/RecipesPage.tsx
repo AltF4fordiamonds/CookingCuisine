@@ -25,7 +25,7 @@ export default function RecipesPage() {
       if (!res.ok) throw new Error("Failed to fetch recipes");
       return res.json();
     },
-    keepPreviousData: true,
+  
   });
 
   const categories = [
