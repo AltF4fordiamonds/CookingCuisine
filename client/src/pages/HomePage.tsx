@@ -156,10 +156,10 @@ export default function HomePage() {
             <div className="relative">
               <img 
                 src="https://images.unsplash.com/photo-1556909114-35f207c8bb1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400" 
-                alt="Готвач в кухня" 
+                alt="" 
                 className="rounded-xl shadow-lg w-full"
               />
-              <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-lg">
+              <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-lg z-10">
                 <div className="text-center">
                   <div className="text-3xl font-bold text-warm-orange">
                     {recipes?.length || 0}+
