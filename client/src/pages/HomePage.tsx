@@ -88,7 +88,7 @@ export default function HomePage() {
                 >
                   {recipe.image && (
                     <img 
-                      src={recipe.image} 
+                      src={`${recipe.image}?v=${recipe.id}`} 
                       alt={recipe.title}
                       className="w-full h-48 object-cover"
                     />

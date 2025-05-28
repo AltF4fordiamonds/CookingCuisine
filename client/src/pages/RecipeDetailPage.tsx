@@ -135,7 +135,7 @@ function MainContent({ recipe }: { recipe: Recipe }) {
     <>
       {recipe.image && (
         <img
-          src={recipe.image}
+          src={`${recipe.image}?v=${recipe.id}`}
           alt={recipe.title}
           className="w-full h-64 md:h-96 object-cover rounded-lg shadow-lg mb-8"
         />
