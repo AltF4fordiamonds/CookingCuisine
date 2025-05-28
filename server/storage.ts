@@ -53,13 +53,13 @@ export class MemStorage implements IStorage {
   private initializeSampleRecipes() {
     const sampleRecipes = [
       {
-        title: "Класическа баница",
-        description: "Традиционна българска баница с яйца и сирене, приготвена с домашно тесто",
+        title: "Баница",
+        description: "Баница с яйца и сирене, приготвена с домашно тесто",
         category: "main",
         prepTime: 30,
         cookTime: 45,
         servings: 6,
-        image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=800",
+        image: "https://recepti.gotvach.bg/files/lib/600x350/puhkava-banica-izvara-sirene.webp",
         ingredients: [
           { amount: "500", unit: "г", name: "готови кори за баница" },
           { amount: "4", unit: "бр", name: "яйца" },
@@ -84,7 +84,7 @@ export class MemStorage implements IStorage {
         prepTime: 15,
         cookTime: 0,
         servings: 4,
-        image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=800",
+        image: "https://recepti.gotvach.bg/files/lib/600x350/shopska-salata-original.webp",
         ingredients: [
           { amount: "4", unit: "бр", name: "домати" },
           { amount: "2", unit: "бр", name: "краставици" },
@@ -113,7 +113,7 @@ export class MemStorage implements IStorage {
         prepTime: 45,
         cookTime: 40,
         servings: 8,
-        image: "https://images.unsplash.com/photo-1571115764595-644a1f56a55c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=800",
+        image: "https://recepti.gotvach.bg/files/lib/600x350/klasikatikvenik.webp",
         ingredients: [
           { amount: "500", unit: "г", name: "готови кори за баница" },
           { amount: "1", unit: "кг", name: "тиква (настъргана)" },
@@ -140,7 +140,7 @@ export class MemStorage implements IStorage {
         prepTime: 20,
         cookTime: 60,
         servings: 4,
-        image: "https://images.unsplash.com/photo-1547592180-85f173990554?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=800",
+        image: "https://recepti.gotvach.bg/files/lib/600x350/pilsupafidezastroika.webp",
         ingredients: [
           { amount: "500", unit: "г", name: "пилешко месо" },
           { amount: "100", unit: "г", name: "фиде" },
@@ -170,7 +170,7 @@ export class MemStorage implements IStorage {
         prepTime: 30,
         cookTime: 45,
         servings: 6,
-        image: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=800",
+        image: "https://recepti.gotvach.bg/files/lib/600x350/kiopoolu-chesan.webp",
         ingredients: [
           { amount: "3", unit: "бр", name: "едри патладжани" },
           { amount: "2", unit: "бр", name: "червени пиперки" },
