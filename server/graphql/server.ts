@@ -7,10 +7,12 @@ import { resolvers as spoonacularResolvers } from './resolvers';
 
 export async function createApolloServer() {
   const server = new ApolloServer({
-    typeDefs: [recipeTypeDefs, spoonacularTypeDefs],
-    resolvers: [recipeResolvers, spoonacularResolvers],
+    typeDefs,
+    resolvers,
   });
 
   await server.start();
   return server;
 }
+
+export { expressMiddleware };

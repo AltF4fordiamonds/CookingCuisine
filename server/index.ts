@@ -1,7 +1,7 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
-import { createGraphQLServer, expressMiddleware } from "./graphql/server";
+import { createApolloServer, expressMiddleware } from "./graphql/server";
 import cors from "cors";
 
 const app = express();
@@ -40,7 +40,7 @@ app.use((req, res, next) => {
 
 (async () => {
   // Създаваме GraphQL сървъра
-  const graphqlServer = await createGraphQLServer();
+  const graphqlServer = await createApolloServer();
   
   // Добавяме GraphQL middleware
   app.use('/graphql', cors<cors.CorsRequest>(), express.json(), expressMiddleware(graphqlServer));
