@@ -1,17 +1,16 @@
-
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
-import { typeDefs } from './schema';
-import { resolvers } from './resolvers';
+import { typeDefs as recipeTypeDefs } from './schema';
+import { resolvers as recipeResolvers } from './resolvers';
+import { typeDefs as spoonacularTypeDefs } from './schema';
+import { resolvers as spoonacularResolvers } from './resolvers';
 
-export async function createGraphQLServer() {
+export async function createApolloServer() {
   const server = new ApolloServer({
-    typeDefs,
-    resolvers,
+    typeDefs: [recipeTypeDefs, spoonacularTypeDefs],
+    resolvers: [recipeResolvers, spoonacularResolvers],
   });
 
   await server.start();
   return server;
 }
-
-export { expressMiddleware };

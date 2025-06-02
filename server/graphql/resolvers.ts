@@ -1,5 +1,7 @@
 
 import axios from 'axios';
+import { storage } from '../storage';
+import type { Recipe } from '@shared/schema';
 
 const SPOONACULAR_API_KEY = process.env.SPOONACULAR_API_KEY;
 const SPOONACULAR_BASE_URL = 'https://api.spoonacular.com/recipes';
@@ -23,13 +25,18 @@ async function translateToBulgarian(text: string): Promise<string> {
   }
 }
 
-import { storage } from '../storage';
-import type { Recipe } from '@shared/schema';
-
 export const resolvers = {
   Query: {
+    recipes: async () => {
+      return await storage.getRecipes();
+    },
+    recipe: async (_: any, { id }: { id: string }) => {
+      return await storage.getRecipe(id);
+    },
     searchSpoonacularRecipes: async (_: any, { query, number }: { query: string; number: number }) => {
       try {
+        console.log('Searching Spoonacular with:', { query, number, apiKey: SPOONACULAR_API_KEY ? 'present' : 'missing' });
+        
         const response = await axios.get(`${SPOONACULAR_BASE_URL}/complexSearch`, {
           params: {
             apiKey: SPOONACULAR_API_KEY,
@@ -39,6 +46,8 @@ export const resolvers = {
             fillIngredients: true,
           },
         });
+
+        console.log('Spoonacular response:', response.data);
 
         const recipes = await Promise.all(
           response.data.results.map(async (recipe: any) => ({
@@ -102,6 +111,15 @@ export const resolvers = {
   },
 
   Mutation: {
+    createRecipe: async (_: any, args: any) => {
+      return await storage.createRecipe(args);
+    },
+    updateRecipe: async (_: any, { id, ...updates }: any) => {
+      return await storage.updateRecipe(id, updates);
+    },
+    deleteRecipe: async (_: any, { id }: { id: string }) => {
+      return await storage.deleteRecipe(id);
+    },
     saveSpoonacularRecipe: async (_: any, { spoonacularId }: { spoonacularId: number }) => {
       try {
         // Получаваме пълната информация за рецептата от Spoonacular
