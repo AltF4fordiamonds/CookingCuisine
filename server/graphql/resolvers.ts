@@ -23,7 +23,8 @@ async function translateToBulgarian(text: string): Promise<string> {
   }
 }
 
-import { db, Recipe } from '../storage';
+import { storage } from '../storage';
+import type { Recipe } from '@shared/schema';
 
 export const resolvers = {
   Query: {
@@ -152,7 +153,7 @@ export const resolvers = {
           ],
         };
 
-        db.insert('recipes', newRecipe);
+        await storage.createRecipe(newRecipe);
         return 'Рецептата беше запазена успешно!';
       } catch (error) {
         console.error('Error saving Spoonacular recipe:', error);
