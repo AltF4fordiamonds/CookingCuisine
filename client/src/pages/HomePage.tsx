@@ -18,33 +18,40 @@ export default function HomePage() {
       {/* Hero Section */}
       <div className="relative bg-gradient-to-r from-warm-orange to-deep-amber text-white">
         <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-        <div 
+        <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=1080')"
+            backgroundImage:
+              "url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=1080')",
           }}
         ></div>
         <div className="relative max-w-7xl mx-auto px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-playfair font-bold mb-6 text-[#ed9f66]">
               Добре дошли в{" "}
-              <span className="font-dancing text-[#f20202]">ЖиГулИ рецепти</span>
+              <span className="font-dancing text-[#f20202]">
+                ЖиГулИ рецепти
+              </span>
             </h1>
             <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-              Открийте невероятни кулинарни рецепти и споделете своите любими ястия с нашата общност
+              Открийте невероятни кулинарни рецепти и споделете своите любими
+              ястия с нашата общност
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/recipes">
-                <Button size="lg" className="bg-bright-yellow text-gray-800 hover:bg-yellow-400">
+                <Button
+                  size="lg"
+                  className="bg-bright-yellow text-gray-800 hover:bg-yellow-400"
+                >
                   <Search className="w-5 h-5 mr-2" />
                   Разгледай рецепти
                 </Button>
               </Link>
               <Link href="/add-recipe">
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  className="border-2 border-white text-white hover:bg-white hover:text-gray-800"
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-2 border-white text-white hover:bg-white text-gray-800 hover:text-gray-800"
                 >
                   <Plus className="w-5 h-5 mr-2" />
                   Добави рецепта
@@ -83,12 +90,10 @@ export default function HomePage() {
           ) : featuredRecipes.length > 0 ? (
             featuredRecipes.map((recipe) => (
               <Link key={recipe.id} href={`/recipe/${recipe.id}`}>
-                <Card 
-                  className="overflow-hidden hover:shadow-xl transition-shadow cursor-pointer"
-                >
+                <Card className="overflow-hidden hover:shadow-xl transition-shadow cursor-pointer">
                   {recipe.image && (
-                    <img 
-                      src={`${recipe.image}?v=${recipe.id}`} 
+                    <img
+                      src={`${recipe.image}?v=${recipe.id}`}
                       alt={recipe.title}
                       className="w-full h-48 object-cover"
                     />
@@ -117,7 +122,8 @@ export default function HomePage() {
           ) : (
             <div className="col-span-full text-center py-8">
               <p className="text-gray-500 text-lg">
-                Все още няма добавени рецепти. Бъдете първите, които ще споделят своите кулинарни творения!
+                Все още няма добавени рецепти. Бъдете първите, които ще споделят
+                своите кулинарни творения!
               </p>
               <Link href="/add-recipe">
                 <Button className="mt-4 bg-warm-orange hover:bg-deep-amber">
@@ -138,13 +144,15 @@ export default function HomePage() {
                 За ЖиГулИ рецепти
               </h2>
               <p className="text-lg text-gray-600 mb-6">
-                Нашият сайт е създаден с любов към кулинарията и желанието да споделим 
-                страстта си към готвенето. Тук ще намерите разнообразни рецепти - от 
-                традиционни български ястия до международни кулинарни изкушения.
+                Нашият сайт е създаден с любов към кулинарията и желанието да
+                споделим страстта си към готвенето. Тук ще намерите разнообразни
+                рецепти - от традиционни български ястия до международни
+                кулинарни изкушения.
               </p>
               <p className="text-lg text-gray-600 mb-8">
-                Присъединете се към нашата общност и споделете своите любими рецепти. 
-                Заедно можем да създадем най-голямата колекция от вкусни и проверени рецепти!
+                Присъединете се към нашата общност и споделете своите любими
+                рецепти. Заедно можем да създадем най-голямата колекция от
+                вкусни и проверени рецепти!
               </p>
               <Link href="/add-recipe">
                 <Button className="bg-warm-orange hover:bg-deep-amber">
@@ -154,9 +162,9 @@ export default function HomePage() {
               </Link>
             </div>
             <div className="relative">
-              <img 
-                src="https://images.unsplash.com/photo-1556909114-35f207c8bb1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400" 
-                alt="" 
+              <img
+                src="https://images.unsplash.com/photo-1556909114-35f207c8bb1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400"
+                alt=""
                 className="rounded-xl shadow-lg w-full"
               />
               <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-lg z-10">

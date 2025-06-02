@@ -1,13 +1,13 @@
-import { 
-  recipes, 
-  contacts, 
-  users, 
-  type Recipe, 
-  type InsertRecipe, 
-  type Contact, 
+import {
+  recipes,
+  contacts,
+  users,
+  type Recipe,
+  type InsertRecipe,
+  type Contact,
   type InsertContact,
-  type User, 
-  type InsertUser 
+  type User,
+  type InsertUser,
 } from "@shared/schema";
 
 export interface IStorage {
@@ -15,15 +15,18 @@ export interface IStorage {
   getRecipes(): Promise<Recipe[]>;
   getRecipe(id: number): Promise<Recipe | undefined>;
   createRecipe(recipe: InsertRecipe): Promise<Recipe>;
-  updateRecipe(id: number, recipe: Partial<InsertRecipe>): Promise<Recipe | undefined>;
+  updateRecipe(
+    id: number,
+    recipe: Partial<InsertRecipe>,
+  ): Promise<Recipe | undefined>;
   deleteRecipe(id: number): Promise<boolean>;
   searchRecipes(query: string): Promise<Recipe[]>;
   filterRecipesByCategory(category: string): Promise<Recipe[]>;
-  
+
   // Contact methods
   createContact(contact: InsertContact): Promise<Contact>;
   getContacts(): Promise<Contact[]>;
-  
+
   // User methods (existing)
   getUser(id: number): Promise<User | undefined>;
   getUserByUsername(username: string): Promise<User | undefined>;
@@ -45,7 +48,7 @@ export class MemStorage implements IStorage {
     this.currentRecipeId = 1;
     this.currentContactId = 1;
     this.currentUserId = 1;
-    
+
     // Initialize with sample recipes
     this.initializeSampleRecipes();
   }
@@ -59,32 +62,37 @@ export class MemStorage implements IStorage {
         prepTime: 30,
         cookTime: 45,
         servings: 6,
-        image: "https://recepti.gotvach.bg/files/lib/600x350/puhkava-banica-izvara-sirene.webp",
+        image:
+          "https://recepti.gotvach.bg/files/lib/600x350/puhkava-banica-izvara-sirene.webp",
         ingredients: [
           { amount: "500", unit: "г", name: "готови кори за баница" },
           { amount: "4", unit: "бр", name: "яйца" },
           { amount: "300", unit: "г", name: "сирене (настъргано)" },
           { amount: "200", unit: "мл", name: "мляко" },
           { amount: "100", unit: "мл", name: "слънчогледово олио" },
-          { amount: "1", unit: "ч.л.", name: "сол" }
+          { amount: "1", unit: "ч.л.", name: "сол" },
         ],
         instructions: [
           { text: "Загрейте фурната до 200°C." },
           { text: "В купа разбийте яйцата с млякото и олиото." },
           { text: "Добавете настърганото сирене и солта." },
           { text: "Намаслете тава за печене." },
-          { text: "Подредете корите в тавата, като всяка кора намажете със сместа." },
-          { text: "Печете 45 минути до златисто." }
-        ]
+          {
+            text: "Подредете корите в тавата, като всяка кора намажете със сместа.",
+          },
+          { text: "Печете 45 минути до златисто." },
+        ],
       },
       {
         title: "Шопска салата",
-        description: "Свежа традиционна българска салата с домати, краставици и сирене",
+        description:
+          "Свежа традиционна българска салата с домати, краставици и сирене",
         category: "salads",
         prepTime: 15,
         cookTime: 0,
         servings: 4,
-        image: "https://recepti.gotvach.bg/files/lib/600x350/shopska-salata-original.webp",
+        image:
+          "https://recepti.gotvach.bg/files/lib/600x350/shopska-salata-original.webp",
         ingredients: [
           { amount: "4", unit: "бр", name: "домати" },
           { amount: "2", unit: "бр", name: "краставици" },
@@ -94,7 +102,7 @@ export class MemStorage implements IStorage {
           { amount: "3", unit: "с.л.", name: "зехтин" },
           { amount: "1", unit: "с.л.", name: "оцет" },
           { amount: "1", unit: "щипка", name: "сол" },
-          { amount: "1", unit: "щипка", name: "черен пипер" }
+          { amount: "1", unit: "щипка", name: "черен пипер" },
         ],
         instructions: [
           { text: "Нарежете доматите на парченца." },
@@ -103,8 +111,8 @@ export class MemStorage implements IStorage {
           { text: "Нарежете лука на тънки колелца." },
           { text: "Смесете всички зеленчуци в салатиера." },
           { text: "Добавете зехтина, оцета, солта и черния пипер." },
-          { text: "Настъргайте сиренето отгоре и сервирайте." }
-        ]
+          { text: "Настъргайте сиренето отгоре и сервирайте." },
+        ],
       },
       {
         title: "Тиквеник",
@@ -113,7 +121,8 @@ export class MemStorage implements IStorage {
         prepTime: 45,
         cookTime: 40,
         servings: 8,
-        image: "https://recepti.gotvach.bg/files/lib/600x350/klasikatikvenik.webp",
+        image:
+          "https://recepti.gotvach.bg/files/lib/600x350/klasikatikvenik.webp",
         ingredients: [
           { amount: "500", unit: "г", name: "готови кори за баница" },
           { amount: "1", unit: "кг", name: "тиква (настъргана)" },
@@ -121,17 +130,21 @@ export class MemStorage implements IStorage {
           { amount: "100", unit: "г", name: "орехи (смлени)" },
           { amount: "100", unit: "мл", name: "слънчогледово олио" },
           { amount: "2", unit: "ч.л.", name: "канела" },
-          { amount: "1", unit: "пакетче", name: "ванилия" }
+          { amount: "1", unit: "пакетче", name: "ванилия" },
         ],
         instructions: [
           { text: "Загрейте фурната до 180°C." },
-          { text: "Смесете настърганата тиква със захарта и оставете 15 минути." },
+          {
+            text: "Смесете настърганата тиква със захарта и оставете 15 минути.",
+          },
           { text: "Добавете орехите, канелата и ванилията." },
           { text: "Намаслете тава за печене." },
-          { text: "Подредете корите в тавата, като всяка кора намажете с олио и тиквената смес." },
+          {
+            text: "Подредете корите в тавата, като всяка кора намажете с олио и тиквената смес.",
+          },
           { text: "Печете 40 минути до златисто." },
-          { text: "Оставете да се охлади преди сервиране." }
-        ]
+          { text: "Оставете да се охлади преди сервиране." },
+        ],
       },
       {
         title: "Пилешка супа с фиде",
@@ -140,7 +153,8 @@ export class MemStorage implements IStorage {
         prepTime: 20,
         cookTime: 60,
         servings: 4,
-        image: "https://recepti.gotvach.bg/files/lib/600x350/pilsupafidezastroika.webp",
+        image:
+          "https://recepti.gotvach.bg/files/lib/600x350/pilsupafidezastroika.webp",
         ingredients: [
           { amount: "500", unit: "г", name: "пилешко месо" },
           { amount: "100", unit: "г", name: "фиде" },
@@ -150,7 +164,7 @@ export class MemStorage implements IStorage {
           { amount: "2", unit: "с.л.", name: "слънчогледово олио" },
           { amount: "1", unit: "ч.л.", name: "сол" },
           { amount: "1", unit: "щипка", name: "черен пипер" },
-          { amount: "1", unit: "с.л.", name: "нарязан магданоз" }
+          { amount: "1", unit: "с.л.", name: "нарязан магданоз" },
         ],
         instructions: [
           { text: "Сложете пилешкото месо във вода и го варете 40 минути." },
@@ -160,8 +174,10 @@ export class MemStorage implements IStorage {
           { text: "Запържете ги в олио до размекване." },
           { text: "Добавете бульона и варете 10 минути." },
           { text: "Добавете фидетата и варете 8-10 минути." },
-          { text: "Върнете месото в супата, подправете и поръсете с магданоз." }
-        ]
+          {
+            text: "Върнете месото в супата, подпo�авете и поръсете с магданоз.",
+          },
+        ],
       },
       {
         title: "Кьопоолу",
@@ -170,7 +186,8 @@ export class MemStorage implements IStorage {
         prepTime: 30,
         cookTime: 45,
         servings: 6,
-        image: "https://recepti.gotvach.bg/files/lib/600x350/kiopoolu-chesan.webp",
+        image:
+          "https://recepti.gotvach.bg/files/lib/600x350/kiopoolu-chesan.webp",
         ingredients: [
           { amount: "3", unit: "бр", name: "едри патладжани" },
           { amount: "2", unit: "бр", name: "червени пиперки" },
@@ -178,18 +195,20 @@ export class MemStorage implements IStorage {
           { amount: "3", unit: "с.л.", name: "зехтин" },
           { amount: "1", unit: "с.л.", name: "оцет" },
           { amount: "1", unit: "ч.л.", name: "сол" },
-          { amount: "1", unit: "с.л.", name: "нарязан магданоз" }
+          { amount: "1", unit: "с.л.", name: "нарязан магданоз" },
         ],
         instructions: [
           { text: "Загрейте фурната до 200°C." },
-          { text: "Пробождете патладжаните с вилица и ги печете 30-40 минути." },
+          {
+            text: "Пробождете патладжаните с вилица и ги печете 30-40 минути.",
+          },
           { text: "Печете пиперките 20 минути." },
           { text: "Оставете да се охладят, след това ги обелете." },
           { text: "Нарежете патладжаните и пиперките на дребно." },
           { text: "Смачкайте чесъна със сол." },
           { text: "Смесете всички продукти с зехтина и оцета." },
-          { text: "Поръсете с магданоз и сервирайте." }
-        ]
+          { text: "Поръсете с магданоз и сервирайте." },
+        ],
       },
       {
         title: "Спагети Болонезе",
@@ -198,7 +217,8 @@ export class MemStorage implements IStorage {
         prepTime: 20,
         cookTime: 60,
         servings: 5,
-        image: "https://recepti.gotvach.bg/files/lib/600x350/spagetkiboloneze.webp",
+        image:
+          "https://recepti.gotvach.bg/files/lib/600x350/spagetkiboloneze.webp",
         ingredients: [
           { amount: "600", unit: "г", name: "мляно месо" },
           { amount: "1", unit: "пакет", name: "спагети италиански" },
@@ -206,28 +226,46 @@ export class MemStorage implements IStorage {
           { amount: "1", unit: "бр", name: "лук" },
           { amount: "1", unit: "бр", name: "морков" },
           { amount: "3", unit: "скилидки", name: "чесън" },
-          { amount: "600", unit: "г", name: "домати (консерва или доматено пюре)" },
+          {
+            amount: "600",
+            unit: "г",
+            name: "домати (консерва или доматено пюре)",
+          },
           { amount: "100", unit: "г", name: "пармезан" },
           { amount: "1", unit: "ч.л.", name: "сол" },
           { amount: "1", unit: "ч.л.", name: "риган" },
           { amount: "1", unit: "ч.л.", name: "босилек" },
           { amount: "1", unit: "щипка", name: "черен пипер" },
           { amount: "1", unit: "щипка", name: "червен пипер" },
-          { amount: "1", unit: "щипка", name: "къри" }
+          { amount: "1", unit: "щипка", name: "къри" },
         ],
         instructions: [
-          { text: "Нарязваме на кубчета лука и моркова, задушаваме на тиган в зехтин." },
-          { text: "Добавяме каймата от мляно месо и разбъркваме до нейното наситняване и запичане." },
+          {
+            text: "Нарязваме на кубчета лука и моркова, задушаваме на тиган в зехтин.",
+          },
+          {
+            text: "Добавяме каймата от мляно месо и разбъркваме до нейното наситняване и запичане.",
+          },
           { text: "Поръсваме с черен пипер, къри и червен пипер, бъркаме." },
-          { text: "Добавяме доматите и стриваме 2-3 скилидки чесън, поръсваме с босилек и риган." },
+          {
+            text: "Добавяме доматите и стриваме 2-3 скилидки чесън, поръсваме с босилек и риган.",
+          },
           { text: "Оставяме да къкри на бавен огън 30-40 минути." },
-          { text: "В тенджера слагаме вода до над половината на съда и я довеждаме до кипене." },
-          { text: "Добавяме малко зехтин във водата и една супена лъжица сол." },
-          { text: "Слагаме спагетите, без да ги чупим, огъваме и ги оставяме да се спуснат във врящата вода." },
+          {
+            text: "В тенджера слагаме вода до над половината на съда и я довеждаме до кипене.",
+          },
+          {
+            text: "Добавяме малко зехтин във водата и една супена лъжица сол.",
+          },
+          {
+            text: "Слагаме спагетите, без да ги чупим, огъваме и ги оставяме да се спуснат във врящата вода.",
+          },
           { text: "Варим 6-8 минути според указанието на пакета." },
           { text: "Изцеждаме пастата и сервираме в дълбоки чинии." },
-          { text: "Поливаме със сос Болонезе и настъргваме пармезан едро отгоре." }
-        ]
+          {
+            text: "Поливаме със сос Болонезе и настъргваме пармезан едро отгоре.",
+          },
+        ],
       },
       {
         title: "Царски сладки",
@@ -248,13 +286,17 @@ export class MemStorage implements IStorage {
           { amount: "1", unit: "ч.л.", name: "ванилия" },
           { amount: "1", unit: "щипка", name: "сол" },
           { amount: "200", unit: "г", name: "шоколад за топене" },
-          { amount: "50", unit: "г", name: "масло за глазура" }
+          { amount: "50", unit: "г", name: "масло за глазура" },
         ],
         instructions: [
-          { text: "Размекваме маслото и го разбиваме с пудра захарта до кремообразна консистенция." },
+          {
+            text: "Размекваме маслото и го разбиваме с пудра захарта до кремообразна консистенция.",
+          },
           { text: "Добавяме яйцата едно по едно, ванилията и солта." },
           { text: "Постепенно добавяме брашното и замесваме тесто." },
-          { text: "Разделяме тестото на две части - една по-голяма за основата." },
+          {
+            text: "Разделяме тестото на две части - една по-голяма за основата.",
+          },
           { text: "Разточваме по-голямата част в намаслена тава." },
           { text: "Смесваме орехите с меда и рома за плънката." },
           { text: "Разпределяме плънката върху тестото в тавата." },
@@ -262,17 +304,19 @@ export class MemStorage implements IStorage {
           { text: "Печем във фурна на 180°C за 25 минути до златисто." },
           { text: "Оставяме да се охлади напълно." },
           { text: "Топим шоколада с маслото и поливаме сладкишите." },
-          { text: "Нарязваме на квадратчета и сервираме." }
-        ]
+          { text: "Нарязваме на квадратчета и сервираме." },
+        ],
       },
       {
         title: "Хумус със зеленчуци",
-        description: "Здравословно и вкусно предястие с нахут и печени зеленчуци",
+        description:
+          "Здравословно и вкусно предястие с нахут и печени зеленчуци",
         category: "appetizers",
         prepTime: 25,
         cookTime: 30,
         servings: 4,
-        image: "https://recepti.gotvach.bg/files/lib/600x350/kupichki-sosove.webp",
+        image:
+          "https://recepti.gotvach.bg/files/lib/600x350/kupichki-sosove.webp",
         ingredients: [
           { amount: "300", unit: "г", name: "нахут" },
           { amount: "2", unit: "бр", name: "червени пиперки (за печене)" },
@@ -283,21 +327,41 @@ export class MemStorage implements IStorage {
           { amount: "1", unit: "ч.л.", name: "червен пипер" },
           { amount: "на вкус", unit: "", name: "сол" },
           { amount: "3", unit: "стръка", name: "магданоз" },
-          { amount: "3", unit: "с.л.", name: "зехтин" }
+          { amount: "3", unit: "с.л.", name: "зехтин" },
         ],
         instructions: [
           { text: "Накиснете нахута от предната вечер във вода." },
-          { text: "На следващата сутрин го отцедете и го сложете с нова вода да се свари напълно." },
-          { text: "По желание отделете люспите на нахута, но може и да ги оставите." },
-          { text: "Докато нахутът се вари, сложете целия патладжан и тиквичката да се изпекат в тава, застлана с алуминиево фолио." },
-          { text: "Обелете патладжана и заедно с почистената тиквичка ги нарежете на парчета." },
-          { text: "Пиперките също опечете, обелете и почистете от дръжки и семки." },
-          { text: "В подходящ съд пасирайте смесените нахут, чушки, патладжан, тиквички с около 1 ч.ч. бульон от варенето на нахута." },
-          { text: "Ако искате да направите хумусът по-гъст, сложете по-малко количество течност." },
-          { text: "Към пасираната смес добавете скълцания чесън, лимоновия сок, зехтина и подправките на вкус." },
-          { text: "Отново пасирайте още веднъж, докато всичко се хомогенизира." },
-          { text: "Сервирайте с арабски питки, брускети, препечени филийки или като гарнитура към месо." }
-        ]
+          {
+            text: "На следващата сутрин го отцедете и го сложете с нова вода да се свари напълно.",
+          },
+          {
+            text: "По желание отделете люспите на нахута, но може и да ги оставите.",
+          },
+          {
+            text: "Докато нахутът се вари, сложете целия патладжан и тиквичката да се изпекат в тава, застлана с алуминиево фолио.",
+          },
+          {
+            text: "Обелете патладжана и заедно с почистената тиквичка ги нарежете на парчета.",
+          },
+          {
+            text: "Пиперките също опечете, обелете и почистете от дръжки и семки.",
+          },
+          {
+            text: "В подходящ съд пасирайте смесените нахут, чушки, патладжан, тиквички с около 1 ч.ч. бульон от варенето на нахута.",
+          },
+          {
+            text: "Ако искате да направите хумусът по-гъст, сложете по-малко количество течност.",
+          },
+          {
+            text: "Към пасираната смес добавете скълцания чесън, лимоновия сок, зехтина и подправките на вкус.",
+          },
+          {
+            text: "Отново пасирайте още веднъж, докато всичко се хомогенизира.",
+          },
+          {
+            text: "Сервирайте с арабски питки, брускети, препечени филийки или като гарнитура към месо.",
+          },
+        ],
       },
       {
         title: "Пролетна супа със спанак и ориз",
@@ -306,7 +370,8 @@ export class MemStorage implements IStorage {
         prepTime: 5,
         cookTime: 30,
         servings: 6,
-        image: "https://recepti.gotvach.bg/files/lib/600x350/supa-spanak-oriz234.webp",
+        image:
+          "https://recepti.gotvach.bg/files/lib/600x350/supa-spanak-oriz234.webp",
         ingredients: [
           { amount: "400", unit: "г", name: "спанак" },
           { amount: "1", unit: "ч.ч.", name: "ориз" },
@@ -323,25 +388,39 @@ export class MemStorage implements IStorage {
           { amount: "1", unit: "ч.л.", name: "чубрица" },
           { amount: "1", unit: "ч.л.", name: "джоджен" },
           { amount: "на вкус", unit: "", name: "кисело мляко (по желание)" },
-          { amount: "на вкус", unit: "", name: "лют пипер (по желание)" }
+          { amount: "на вкус", unit: "", name: "лют пипер (по желание)" },
         ],
         instructions: [
-          { text: "Почистете и нарежете зеленчуците - лукът и доматите на дребно, морковите може да настържете." },
-          { text: "В тенджера сипете олиото, поставете на котлона и загрейте." },
-          { text: "Сложете лука и моркова, запържете за минута-две, добавете доматите, разбъркайте." },
+          {
+            text: "Почистете и нарежете зеленчуците - лукът и доматите на дребно, морковите може да настържете.",
+          },
+          {
+            text: "В тенджера сипете олиото, поставете на котлона и загрейте.",
+          },
+          {
+            text: "Сложете лука и моркова, запържете за минута-две, добавете доматите, разбъркайте.",
+          },
           { text: "Сипете червения пипер и пържете още минута." },
           { text: "Измийте ориза и го добавете към зеленчуците." },
           { text: "Разбъркайте и запържете, докато стане прозрачен." },
           { text: "Сипете поне 4 литра вода и оставете да кипне." },
-          { text: "Гответе след завиране около 15 минути до омекване на ориза, като междувременно отпенвате образувалата се пяна." },
-          { text: "Когато оризът омекне, добавете консерва домати, подправете с малко захар, чубрица и джоджен." },
+          {
+            text: "Гответе след завиране около 15 минути до омекване на ориза, като междувременно отпенвате образувалата се пяна.",
+          },
+          {
+            text: "Когато оризът омекне, добавете консерва домати, подправете с малко захар, чубрица и джоджен.",
+          },
           { text: "Ако е необходимо, добавете сол на вкус." },
           { text: "Измийте, почистете и накъсайте листата спанак." },
-          { text: "Сложете половината количество в тенджерата, разбъркайте, изчакайте минута да омекне и намали обема си." },
+          {
+            text: "Сложете половината количество в тенджерата, разбъркайте, изчакайте минута да омекне и намали обема си.",
+          },
           { text: "Добавете и останалото количество спанак." },
           { text: "Разбъркайте, гответе още 5-10 мин и махнете от котлона." },
-          { text: "При поднасяне по желание гарнирайте с лъжица кисело мляко и лют пипер." }
-        ]
+          {
+            text: "При поднасяне по желание гарнирайте с лъжица кисело мляко и лют пипер.",
+          },
+        ],
       },
       {
         title: "Салата цезар",
@@ -350,7 +429,8 @@ export class MemStorage implements IStorage {
         prepTime: 15,
         cookTime: 30,
         servings: 3,
-        image: "https://recepti.gotvach.bg/files/lib/600x350/salatacesarpile.webp",
+        image:
+          "https://recepti.gotvach.bg/files/lib/600x350/salatacesarpile.webp",
         ingredients: [
           { amount: "2", unit: "бр", name: "пилешки гърди" },
           { amount: "1", unit: "глава", name: "айсберг" },
@@ -364,23 +444,27 @@ export class MemStorage implements IStorage {
           { amount: "2", unit: "с.л.", name: "лимонов сок" },
           { amount: "2", unit: "с.л.", name: "зехтин" },
           { amount: "100", unit: "г", name: "крутони" },
-          { amount: "50", unit: "г", name: "пармезан (настърган)" }
+          { amount: "50", unit: "г", name: "пармезан (настърган)" },
         ],
         instructions: [
-          { text: "Пилешките гърди се овкусяват със сол и черен пипер и се изпичат на скара или оребрен тиган." },
+          {
+            text: "Пилешките гърди се овкусяват със сол и черен пипер и се изпичат на скара или оребрен тиган.",
+          },
           { text: "След като изстинат се нарязват на хапки." },
           { text: "Салатата се почиства, измива се и се накъсва." },
           { text: "Прибавят се нарязаните краставица и чери доматки." },
           { text: "Добавят се пилешките късчета и крутоните." },
-          { text: "В отделен съд се смесват киселото мляко, майонезата и лимоновия сок." },
+          {
+            text: "В отделен съд се смесват киселото мляко, майонезата и лимоновия сок.",
+          },
           { text: "Овкусява се с черен и червен пипер и сол." },
           { text: "С готовия сос се овкусява салатата Цезар." },
-          { text: "Най-отгоре се настъргва пармезан." }
-        ]
-      }
+          { text: "Най-отгоре се настъргва пармезан." },
+        ],
+      },
     ];
 
-    sampleRecipes.forEach(recipe => {
+    sampleRecipes.forEach((recipe) => {
       const id = this.currentRecipeId++;
       const fullRecipe: Recipe = { ...recipe, id };
       this.recipes.set(id, fullRecipe);
@@ -403,12 +487,15 @@ export class MemStorage implements IStorage {
     return recipe;
   }
 
-  async updateRecipe(id: number, recipeUpdate: Partial<InsertRecipe>): Promise<Recipe | undefined> {
+  async updateRecipe(
+    id: number,
+    recipeUpdate: Partial<InsertRecipe>,
+  ): Promise<Recipe | undefined> {
     const existingRecipe = this.recipes.get(id);
     if (!existingRecipe) {
       return undefined;
     }
-    
+
     const updatedRecipe: Recipe = { ...existingRecipe, ...recipeUpdate };
     this.recipes.set(id, updatedRecipe);
     return updatedRecipe;
@@ -421,19 +508,20 @@ export class MemStorage implements IStorage {
   async searchRecipes(query: string): Promise<Recipe[]> {
     const allRecipes = Array.from(this.recipes.values());
     const lowercaseQuery = query.toLowerCase();
-    
-    return allRecipes.filter(recipe => 
-      recipe.title.toLowerCase().includes(lowercaseQuery) ||
-      recipe.description.toLowerCase().includes(lowercaseQuery) ||
-      recipe.ingredients.some(ingredient => 
-        ingredient.name.toLowerCase().includes(lowercaseQuery)
-      )
+
+    return allRecipes.filter(
+      (recipe) =>
+        recipe.title.toLowerCase().includes(lowercaseQuery) ||
+        recipe.description.toLowerCase().includes(lowercaseQuery) ||
+        recipe.ingredients.some((ingredient) =>
+          ingredient.name.toLowerCase().includes(lowercaseQuery),
+        ),
     );
   }
 
   async filterRecipesByCategory(category: string): Promise<Recipe[]> {
     const allRecipes = Array.from(this.recipes.values());
-    return allRecipes.filter(recipe => recipe.category === category);
+    return allRecipes.filter((recipe) => recipe.category === category);
   }
 
   // Contact methods
