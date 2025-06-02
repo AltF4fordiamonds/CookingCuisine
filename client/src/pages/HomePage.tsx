@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Clock, Users, Search, Plus } from "lucide-react";
 import type { Recipe } from "@shared/schema";
+import SpoonacularRecipes from "@/components/SpoonacularRecipes";
 
 export default function HomePage() {
   const { data: recipes, isLoading } = useQuery<Recipe[]>({
@@ -135,6 +136,9 @@ export default function HomePage() {
           )}
         </div>
       </div>
+      {/* Spoonacular Recipes Section */}
+      <SpoonacularRecipes />
+      
       {/* About Section */}
       <div className="bg-warm-gray py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
