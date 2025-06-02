@@ -24,4 +24,8 @@ export const typeDefs = gql`
     searchSpoonacularRecipes(query: String!, number: Int = 12): [SpoonacularRecipe!]!
     getSpoonacularRecipe(id: Int!): SpoonacularRecipe
   }
+
+  type Mutation {
+    saveSpoonacularRecipe(spoonacularId: Int!): String!
+  }
 `;

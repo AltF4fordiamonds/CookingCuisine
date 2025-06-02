@@ -1,26 +1,63 @@
 
 import { useState } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
+import { useQueryClient } from "@tanstack/react-query";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Search, Clock, Users } from "lucide-react";
-import { SEARCH_SPOONACULAR_RECIPES, type SpoonacularRecipe } from "@/lib/graphqlClient";
+import { Search, Clock, Users, Save } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { SEARCH_SPOONACULAR_RECIPES, SAVE_SPOONACULAR_RECIPE, type SpoonacularRecipe } from "@/lib/graphqlClient";
 
 export default function SpoonacularRecipes() {
   const [searchTerm, setSearchTerm] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [savingRecipes, setSavingRecipes] = useState<Set<number>>(new Set());
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
 
   const { data, loading, error } = useQuery(SEARCH_SPOONACULAR_RECIPES, {
     variables: { query: searchTerm, number: 12 },
     skip: !submitted || !searchTerm,
   });
 
+  const [saveRecipe] = useMutation(SAVE_SPOONACULAR_RECIPE, {
+    onSuccess: (data) => {
+      toast({
+        title: "Успех!",
+        description: data.saveSpoonacularRecipe,
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/recipes"] });
+    },
+    onError: (error) => {
+      toast({
+        title: "Грешка",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchTerm.trim()) {
       setSubmitted(true);
+    }
+  };
+
+  const handleSaveRecipe = async (recipeId: number) => {
+    setSavingRecipes(prev => new Set(prev).add(recipeId));
+    try {
+      await saveRecipe({
+        variables: { spoonacularId: recipeId }
+      });
+    } finally {
+      setSavingRecipes(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(recipeId);
+        return newSet;
+      });
     }
   };
 
@@ -107,10 +144,20 @@ export default function SpoonacularRecipes() {
                     </span>
                   )}
                 </div>
-                <div className="text-xs text-gray-500">
-                  <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                <div className="flex items-center justify-between">
+                  <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">
                     Spoonacular
                   </span>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => handleSaveRecipe(recipe.id)}
+                    disabled={savingRecipes.has(recipe.id)}
+                    className="h-7 text-xs"
+                  >
+                    <Save className="w-3 h-3 mr-1" />
+                    {savingRecipes.has(recipe.id) ? "Запазва..." : "Запази"}
+                  </Button>
                 </div>
               </CardContent>
             </Card>

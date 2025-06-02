@@ -23,6 +23,8 @@ async function translateToBulgarian(text: string): Promise<string> {
   }
 }
 
+import { db, Recipe } from '../storage';
+
 export const resolvers = {
   Query: {
     searchSpoonacularRecipes: async (_: any, { query, number }: { query: string; number: number }) => {
@@ -94,6 +96,67 @@ export const resolvers = {
       } catch (error) {
         console.error('Spoonacular API error:', error);
         throw new Error('Failed to fetch recipe from Spoonacular');
+      }
+    },
+  },
+
+  Mutation: {
+    saveSpoonacularRecipe: async (_: any, { spoonacularId }: { spoonacularId: number }) => {
+      try {
+        // Получаваме пълната информация за рецептата от Spoonacular
+        const response = await axios.get(`${SPOONACULAR_BASE_URL}/${spoonacularId}/information`, {
+          params: {
+            apiKey: SPOONACULAR_API_KEY,
+            includeNutrition: false,
+          },
+        });
+
+        const recipe = response.data;
+        
+        // Преобразуваме съставките в правилния формат
+        const ingredients = await Promise.all(
+          (recipe.extendedIngredients || []).map(async (ing: any) => ({
+            name: await translateToBulgarian(ing.name),
+            amount: ing.amount.toString(),
+            unit: await translateToBulgarian(ing.unit || ''),
+          }))
+        );
+
+        // Преобразуваме инструкциите
+        const instructions = recipe.analyzedInstructions?.[0]?.steps || [];
+        const formattedInstructions = await Promise.all(
+          instructions.map(async (step: any) => ({
+            text: await translateToBulgarian(step.step),
+          }))
+        );
+
+        // Определяме категорията на базата на dish types
+        let category = 'main';
+        if (recipe.dishTypes?.includes('salad')) category = 'salads';
+        else if (recipe.dishTypes?.includes('dessert')) category = 'desserts';
+        else if (recipe.dishTypes?.includes('soup')) category = 'soups';
+        else if (recipe.dishTypes?.includes('appetizer')) category = 'appetizers';
+
+        // Запазваме рецептата в базата данни
+        const newRecipe: Omit<Recipe, 'id'> = {
+          title: await translateToBulgarian(recipe.title),
+          description: await translateToBulgarian(recipe.summary?.replace(/<[^>]*>/g, '') || ''),
+          category,
+          prepTime: recipe.preparationMinutes || 0,
+          cookTime: recipe.readyInMinutes || 30,
+          servings: recipe.servings || 4,
+          image: recipe.image || '',
+          ingredients,
+          instructions: formattedInstructions.length > 0 ? formattedInstructions : [
+            { text: await translateToBulgarian(recipe.instructions?.replace(/<[^>]*>/g, '') || 'Инструкции не са налични') }
+          ],
+        };
+
+        db.insert('recipes', newRecipe);
+        return 'Рецептата беше запазена успешно!';
+      } catch (error) {
+        console.error('Error saving Spoonacular recipe:', error);
+        throw new Error('Грешка при запазването на рецептата');
       }
     },
   },

@@ -57,3 +57,9 @@ export interface SpoonacularIngredient {
   amount: number;
   unit: string;
 }
+
+export const SAVE_SPOONACULAR_RECIPE = gql`
+  mutation SaveSpoonacularRecipe($spoonacularId: Int!) {
+    saveSpoonacularRecipe(spoonacularId: $spoonacularId)
+  }
+`;
